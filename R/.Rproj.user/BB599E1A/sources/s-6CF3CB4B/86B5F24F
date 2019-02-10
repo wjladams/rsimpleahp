@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1549749323250.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "86B5F24F",
+    "lastKnownWriteTime" : 1549745162,
+    "last_content_update" : 1549745162,
+    "path" : "~/Documents/github/SimpleAHP/PairwiseShinyApp/common-fxs.R",
+    "project_path" : "common-fxs.R",
+    "properties" : {
+        "cursorPosition" : "11,14",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

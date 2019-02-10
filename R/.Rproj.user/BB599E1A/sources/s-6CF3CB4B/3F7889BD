@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1549746327102.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3473626600",
+    "id" : "3F7889BD",
+    "lastKnownWriteTime" : 1549819112,
+    "last_content_update" : 1549819112019,
+    "path" : "~/Documents/github/SimpleAHP/PairwiseShinyApp/initSetup.R",
+    "project_path" : "initSetup.R",
+    "properties" : {
+        "cursorPosition" : "25,87",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

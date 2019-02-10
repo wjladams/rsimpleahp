@@ -1,0 +1,2150 @@
+
+R version 3.5.2 (2018-12-20) -- "Eggshell Igloo"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> # Run when you first get this code
+> # it will install all missing packages
+> if (! "properties" %in% installed.packages()[,"Package"]) {
++   install.packages("properties")
++ }
+> library(properties)
+> # On ubuntu systems you need
+> # sudo apt install libcurl4-openssl-dev libssl-dev libxml2-dev
+> osname = tolower(Sys.info()['sysname'])
+> if (osname == "linux") {
++   name = tolower(read.properties("/etc/os-release")['NAME'])
++   if (grepl('ubuntu', name)) {
++     message("We are on ubuntu")
++     
++   }
++ }
+We are on ubuntu
+> list.of.packages <- c("shiny",
++                       "rmarkdown",
++                       "gsheet", 
++                       "googlesheets", 
++                       "plotly",
++                       "shinyBS",
++                       "openxlsx")
+> 
+> new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+> if(length(new.packages)) install.packages(new.packages, repos="http://cran.rstudio.com/")
+Installing packages into ‘/usr/local/lib/R/site-library’
+(as ‘lib’ is unspecified)
+also installing the dependencies ‘askpass’, ‘openssl’, ‘bindrcpp’, ‘tidyselect’, ‘hms’, ‘cli’, ‘pillar’, ‘reshape2’, ‘munsell’, ‘httr’, ‘cellranger’, ‘dplyr’, ‘readr’, ‘tibble’, ‘tidyr’, ‘xml2’, ‘ggplot2’, ‘scales’, ‘htmlwidgets’, ‘lazyeval’, ‘crosstalk’, ‘data.table’, ‘zip’
+
+trying URL 'http://cran.rstudio.com/src/contrib/askpass_1.1.tar.gz'
+Content type 'application/x-gzip' length 5730 bytes
+==================================================
+downloaded 5730 bytes
+
+trying URL 'http://cran.rstudio.com/src/contrib/openssl_1.2.1.tar.gz'
+Content type 'application/x-gzip' length 1198080 bytes (1.1 MB)
+==================================================
+downloaded 1.1 MB
+
+trying URL 'http://cran.rstudio.com/src/contrib/bindrcpp_0.2.2.tar.gz'
+Content type 'application/x-gzip' length 10212 bytes
+==================================================
+downloaded 10212 bytes
+
+trying URL 'http://cran.rstudio.com/src/contrib/tidyselect_0.2.5.tar.gz'
+Content type 'application/x-gzip' length 21883 bytes (21 KB)
+==================================================
+downloaded 21 KB
+
+trying URL 'http://cran.rstudio.com/src/contrib/hms_0.4.2.tar.gz'
+Content type 'application/x-gzip' length 12773 bytes (12 KB)
+==================================================
+downloaded 12 KB
+
+trying URL 'http://cran.rstudio.com/src/contrib/cli_1.0.1.tar.gz'
+Content type 'application/x-gzip' length 2186755 bytes (2.1 MB)
+==================================================
+downloaded 2.1 MB
+
+trying URL 'http://cran.rstudio.com/src/contrib/pillar_1.3.1.tar.gz'
+Content type 'application/x-gzip' length 103972 bytes (101 KB)
+==================================================
+downloaded 101 KB
+
+trying URL 'http://cran.rstudio.com/src/contrib/reshape2_1.4.3.tar.gz'
+Content type 'application/x-gzip' length 36405 bytes (35 KB)
+==================================================
+downloaded 35 KB
+
+trying URL 'http://cran.rstudio.com/src/contrib/munsell_0.5.0.tar.gz'
+Content type 'application/x-gzip' length 182653 bytes (178 KB)
+==================================================
+downloaded 178 KB
+
+trying URL 'http://cran.rstudio.com/src/contrib/httr_1.4.0.tar.gz'
+Content type 'application/x-gzip' length 156356 bytes (152 KB)
+==================================================
+downloaded 152 KB
+
+trying URL 'http://cran.rstudio.com/src/contrib/cellranger_1.1.0.tar.gz'
+Content type 'application/x-gzip' length 63857 bytes (62 KB)
+==================================================
+downloaded 62 KB
+
+trying URL 'http://cran.rstudio.com/src/contrib/dplyr_0.7.8.tar.gz'
+Content type 'application/x-gzip' length 719538 bytes (702 KB)
+==================================================
+downloaded 702 KB
+
+trying URL 'http://cran.rstudio.com/src/contrib/readr_1.3.1.tar.gz'
+Content type 'application/x-gzip' length 268853 bytes (262 KB)
+==================================================
+downloaded 262 KB
+
+trying URL 'http://cran.rstudio.com/src/contrib/tibble_2.0.1.tar.gz'
+Content type 'application/x-gzip' length 729338 bytes (712 KB)
+==================================================
+downloaded 712 KB
+
+trying URL 'http://cran.rstudio.com/src/contrib/tidyr_0.8.2.tar.gz'
+Content type 'application/x-gzip' length 378735 bytes (369 KB)
+==================================================
+downloaded 369 KB
+
+trying URL 'http://cran.rstudio.com/src/contrib/xml2_1.2.0.tar.gz'
+Content type 'application/x-gzip' length 251614 bytes (245 KB)
+==================================================
+downloaded 245 KB
+
+trying URL 'http://cran.rstudio.com/src/contrib/ggplot2_3.1.0.tar.gz'
+Content type 'application/x-gzip' length 2863109 bytes (2.7 MB)
+==================================================
+downloaded 2.7 MB
+
+trying URL 'http://cran.rstudio.com/src/contrib/scales_1.0.0.tar.gz'
+Content type 'application/x-gzip' length 299262 bytes (292 KB)
+==================================================
+downloaded 292 KB
+
+trying URL 'http://cran.rstudio.com/src/contrib/htmlwidgets_1.3.tar.gz'
+Content type 'application/x-gzip' length 866548 bytes (846 KB)
+==================================================
+downloaded 846 KB
+
+trying URL 'http://cran.rstudio.com/src/contrib/lazyeval_0.2.1.tar.gz'
+Content type 'application/x-gzip' length 80150 bytes (78 KB)
+==================================================
+downloaded 78 KB
+
+trying URL 'http://cran.rstudio.com/src/contrib/crosstalk_1.0.0.tar.gz'
+Content type 'application/x-gzip' length 563474 bytes (550 KB)
+==================================================
+downloaded 550 KB
+
+trying URL 'http://cran.rstudio.com/src/contrib/data.table_1.12.0.tar.gz'
+Content type 'application/x-gzip' length 3311096 bytes (3.2 MB)
+==================================================
+downloaded 3.2 MB
+
+trying URL 'http://cran.rstudio.com/src/contrib/zip_1.0.0.tar.gz'
+Content type 'application/x-gzip' length 60823 bytes (59 KB)
+==================================================
+downloaded 59 KB
+
+trying URL 'http://cran.rstudio.com/src/contrib/gsheet_0.4.2.tar.gz'
+Content type 'application/x-gzip' length 4674 bytes
+==================================================
+downloaded 4674 bytes
+
+trying URL 'http://cran.rstudio.com/src/contrib/googlesheets_0.3.0.tar.gz'
+Content type 'application/x-gzip' length 2187937 bytes (2.1 MB)
+==================================================
+downloaded 2.1 MB
+
+trying URL 'http://cran.rstudio.com/src/contrib/plotly_4.8.0.tar.gz'
+Content type 'application/x-gzip' length 1860673 bytes (1.8 MB)
+==================================================
+downloaded 1.8 MB
+
+trying URL 'http://cran.rstudio.com/src/contrib/shinyBS_0.61.tar.gz'
+Content type 'application/x-gzip' length 26923 bytes (26 KB)
+==================================================
+downloaded 26 KB
+
+trying URL 'http://cran.rstudio.com/src/contrib/openxlsx_4.1.0.tar.gz'
+Content type 'application/x-gzip' length 1474393 bytes (1.4 MB)
+==================================================
+downloaded 1.4 MB
+
+* installing *source* package ‘askpass’ ...
+** package ‘askpass’ successfully unpacked and MD5 sums checked
+** libs
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c askpass.c -o askpass.o
+gcc -std=gnu99 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o askpass.so askpass.o -L/usr/lib/R/lib -lR
+installing to /usr/local/lib/R/site-library/askpass/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+* DONE (askpass)
+* installing *source* package ‘bindrcpp’ ...
+** package ‘bindrcpp’ successfully unpacked and MD5 sums checked
+** libs
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -I. -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c RcppExports.cpp -o RcppExports.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -I. -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c create.cpp -o create.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -I. -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c plogr.cpp -o plogr.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -I. -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c test.cpp -o test.o
+g++ -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o bindrcpp.so RcppExports.o create.o plogr.o test.o -L/usr/lib/R/lib -lR
+installing to /usr/local/lib/R/site-library/bindrcpp/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+* DONE (bindrcpp)
+* installing *source* package ‘tidyselect’ ...
+** package ‘tidyselect’ successfully unpacked and MD5 sums checked
+** libs
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c RcppExports.cpp -o RcppExports.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c combine_variables.cpp -o combine_variables.o
+g++ -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o tidyselect.so RcppExports.o combine_variables.o -L/usr/lib/R/lib -lR
+installing to /usr/local/lib/R/site-library/tidyselect/libs
+** R
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+* DONE (tidyselect)
+* installing *source* package ‘hms’ ...
+** package ‘hms’ successfully unpacked and MD5 sums checked
+** R
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+* DONE (hms)
+* installing *source* package ‘cli’ ...
+** package ‘cli’ successfully unpacked and MD5 sums checked
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** testing if installed package can be loaded
+* DONE (cli)
+* installing *source* package ‘reshape2’ ...
+** package ‘reshape2’ successfully unpacked and MD5 sums checked
+** libs
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c RcppExports.cpp -o RcppExports.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c melt.cpp -o melt.o
+g++ -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o reshape2.so RcppExports.o melt.o -L/usr/lib/R/lib -lR
+installing to /usr/local/lib/R/site-library/reshape2/libs
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+* DONE (reshape2)
+* installing *source* package ‘munsell’ ...
+** package ‘munsell’ successfully unpacked and MD5 sums checked
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** testing if installed package can be loaded
+* DONE (munsell)
+* installing *source* package ‘xml2’ ...
+** package ‘xml2’ successfully unpacked and MD5 sums checked
+Found pkg-config cflags and libs!
+Using PKG_CFLAGS=-I/usr/include/libxml2
+Using PKG_LIBS=-lxml2
+** libs
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -I/usr/include/libxml2 -I"/usr/local/lib/R/site-library/Rcpp/include"   -fvisibility=hidden -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c RcppExports.cpp -o RcppExports.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -I/usr/include/libxml2 -I"/usr/local/lib/R/site-library/Rcpp/include"   -fvisibility=hidden -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c connection.cpp -o connection.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -I/usr/include/libxml2 -I"/usr/local/lib/R/site-library/Rcpp/include"   -fvisibility=hidden -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c xml2_doc.cpp -o xml2_doc.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -I/usr/include/libxml2 -I"/usr/local/lib/R/site-library/Rcpp/include"   -fvisibility=hidden -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c xml2_init.cpp -o xml2_init.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -I/usr/include/libxml2 -I"/usr/local/lib/R/site-library/Rcpp/include"   -fvisibility=hidden -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c xml2_namespace.cpp -o xml2_namespace.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -I/usr/include/libxml2 -I"/usr/local/lib/R/site-library/Rcpp/include"   -fvisibility=hidden -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c xml2_node.cpp -o xml2_node.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -I/usr/include/libxml2 -I"/usr/local/lib/R/site-library/Rcpp/include"   -fvisibility=hidden -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c xml2_output.cpp -o xml2_output.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -I/usr/include/libxml2 -I"/usr/local/lib/R/site-library/Rcpp/include"   -fvisibility=hidden -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c xml2_schema.cpp -o xml2_schema.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -I/usr/include/libxml2 -I"/usr/local/lib/R/site-library/Rcpp/include"   -fvisibility=hidden -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c xml2_url.cpp -o xml2_url.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -I/usr/include/libxml2 -I"/usr/local/lib/R/site-library/Rcpp/include"   -fvisibility=hidden -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c xml2_xpath.cpp -o xml2_xpath.o
+g++ -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o xml2.so RcppExports.o connection.o xml2_doc.o xml2_init.o xml2_namespace.o xml2_node.o xml2_output.o xml2_schema.o xml2_url.o xml2_xpath.o -lxml2 -L/usr/lib/R/lib -lR
+installing to /usr/local/lib/R/site-library/xml2/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (xml2)
+* installing *source* package ‘htmlwidgets’ ...
+** package ‘htmlwidgets’ successfully unpacked and MD5 sums checked
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (htmlwidgets)
+* installing *source* package ‘lazyeval’ ...
+** package ‘lazyeval’ successfully unpacked and MD5 sums checked
+** libs
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c expr.c -o expr.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c init.c -o init.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c interp.c -o interp.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c lazy.c -o lazy.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c name.c -o name.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c utils.c -o utils.o
+gcc -std=gnu99 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o lazyeval.so expr.o init.o interp.o lazy.o name.o utils.o -L/usr/lib/R/lib -lR
+installing to /usr/local/lib/R/site-library/lazyeval/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (lazyeval)
+* installing *source* package ‘data.table’ ...
+** package ‘data.table’ successfully unpacked and MD5 sums checked
+** libs
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c assign.c -o assign.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c between.c -o between.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c bmerge.c -o bmerge.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c chmatch.c -o chmatch.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c dogroups.c -o dogroups.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c fastmean.c -o fastmean.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c fcast.c -o fcast.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c fmelt.c -o fmelt.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c forder.c -o forder.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c frank.c -o frank.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c fread.c -o fread.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c freadR.c -o freadR.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c froll.c -o froll.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c frollR.c -o frollR.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c frolladaptive.c -o frolladaptive.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c fsort.c -o fsort.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c fwrite.c -o fwrite.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c fwriteR.c -o fwriteR.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c gsumm.c -o gsumm.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c ijoin.c -o ijoin.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c init.c -o init.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c inrange.c -o inrange.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c nqrecreateindices.c -o nqrecreateindices.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c openmp-utils.c -o openmp-utils.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c quickselect.c -o quickselect.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rbindlist.c -o rbindlist.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c reorder.c -o reorder.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c shift.c -o shift.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c subset.c -o subset.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c transpose.c -o transpose.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c uniqlist.c -o uniqlist.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c vecseq.c -o vecseq.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG     -fopenmp -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c wrappers.c -o wrappers.o
+gcc -std=gnu99 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o data.table.so assign.o between.o bmerge.o chmatch.o dogroups.o fastmean.o fcast.o fmelt.o forder.o frank.o fread.o freadR.o froll.o frollR.o frolladaptive.o fsort.o fwrite.o fwriteR.o gsumm.o ijoin.o init.o inrange.o nqrecreateindices.o openmp-utils.o quickselect.o rbindlist.o reorder.o shift.o subset.o transpose.o uniqlist.o vecseq.o wrappers.o -fopenmp -L/usr/lib/R/lib -lR
+mv data.table.so datatable.so
+if [ "" != "Windows_NT" ] && [ `uname -s` = 'Darwin' ]; then install_name_tool -id datatable.so datatable.so; fi
+installing to /usr/local/lib/R/site-library/data.table/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (data.table)
+* installing *source* package ‘zip’ ...
+** package ‘zip’ successfully unpacked and MD5 sums checked
+** libs
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c init.c -o init.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rzip.c -o rzip.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c zip.c -o zip.o
+gcc -std=gnu99 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o zip.so init.o rzip.o zip.o -L/usr/lib/R/lib -lR
+installing to /usr/local/lib/R/site-library/zip/libs
+** R
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+* DONE (zip)
+* installing *source* package ‘shinyBS’ ...
+** package ‘shinyBS’ successfully unpacked and MD5 sums checked
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+* DONE (shinyBS)
+* installing *source* package ‘openssl’ ...
+** package ‘openssl’ successfully unpacked and MD5 sums checked
+Found pkg-config cflags and libs!
+Using PKG_CFLAGS=
+Using PKG_LIBS=-l:libssl.so.1.1 -l:libcrypto.so.1.1
+** libs
+rm -f aes.o base64.o bignum.o cert.o compatibility.o diffie.o envelope.o error.o hash.o info.o keygen.o keys.o onload.o openssh.o password.o pem.o pkcs12.o pkcs7.o rand.o rsa.o signing.o ssl.o stream.o write.o openssl.so
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c aes.c -o aes.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c base64.c -o base64.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c bignum.c -o bignum.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c cert.c -o cert.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c compatibility.c -o compatibility.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c diffie.c -o diffie.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c envelope.c -o envelope.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c error.c -o error.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c hash.c -o hash.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c info.c -o info.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c keygen.c -o keygen.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c keys.c -o keys.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c onload.c -o onload.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c openssh.c -o openssh.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c password.c -o password.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c pem.c -o pem.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c pkcs12.c -o pkcs12.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c pkcs7.c -o pkcs7.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rand.c -o rand.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rsa.c -o rsa.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c signing.c -o signing.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c ssl.c -o ssl.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c stream.c -o stream.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c write.c -o write.o
+gcc -std=gnu99 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o openssl.so aes.o base64.o bignum.o cert.o compatibility.o diffie.o envelope.o error.o hash.o info.o keygen.o keys.o onload.o openssh.o password.o pem.o pkcs12.o pkcs7.o rand.o rsa.o signing.o ssl.o stream.o write.o -l:libssl.so.1.1 -l:libcrypto.so.1.1 -L/usr/lib/R/lib -lR
+installing to /usr/local/lib/R/site-library/openssl/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (openssl)
+* installing *source* package ‘pillar’ ...
+** package ‘pillar’ successfully unpacked and MD5 sums checked
+** R
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** testing if installed package can be loaded
+* DONE (pillar)
+* installing *source* package ‘scales’ ...
+** package ‘scales’ successfully unpacked and MD5 sums checked
+** libs
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c RcppExports.cpp -o RcppExports.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c colors.cpp -o colors.o
+g++ -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o scales.so RcppExports.o colors.o -L/usr/lib/R/lib -lR
+installing to /usr/local/lib/R/site-library/scales/libs
+** R
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** testing if installed package can be loaded
+* DONE (scales)
+* installing *source* package ‘openxlsx’ ...
+** package ‘openxlsx’ successfully unpacked and MD5 sums checked
+** libs
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c RcppExports.cpp -o RcppExports.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c helper_functions.cpp -o helper_functions.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c load_workbook.cpp -o load_workbook.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c openxlsx_init.c -o openxlsx_init.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c read_workbook.cpp -o read_workbook.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c write_data.cpp -o write_data.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c write_file.cpp -o write_file.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c write_file_2.cpp -o write_file_2.o
+g++ -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o openxlsx.so RcppExports.o helper_functions.o load_workbook.o openxlsx_init.o read_workbook.o write_data.o write_file.o write_file_2.o -L/usr/lib/R/lib -lR
+installing to /usr/local/lib/R/site-library/openxlsx/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (openxlsx)
+* installing *source* package ‘httr’ ...
+** package ‘httr’ successfully unpacked and MD5 sums checked
+** R
+** demo
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (httr)
+* installing *source* package ‘tibble’ ...
+** package ‘tibble’ successfully unpacked and MD5 sums checked
+** libs
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c coerce.c -o coerce.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c init.c -o init.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c matrixToDataFrame.c -o matrixToDataFrame.o
+gcc -std=gnu99 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o tibble.so coerce.o init.o matrixToDataFrame.o -L/usr/lib/R/lib -lR
+installing to /usr/local/lib/R/site-library/tibble/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (tibble)
+* installing *source* package ‘cellranger’ ...
+** package ‘cellranger’ successfully unpacked and MD5 sums checked
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (cellranger)
+* installing *source* package ‘dplyr’ ...
+** package ‘dplyr’ successfully unpacked and MD5 sums checked
+** libs
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c RcppExports.cpp -o RcppExports.o
+In file included from /usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:28,
+                 from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from ../inst/include/dplyr/dplyr.h:16,
+                 from ../inst/include/dplyr.h:8,
+                 from RcppExports.cpp:4:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/detail/shared_count.hpp:355:33: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit shared_count( std::auto_ptr<Y> & r ): pi_( new sp_counted_impl_p<Y>( r.get() ) )
+                                 ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from ../inst/include/dplyr/main.h:4,
+                 from ../inst/include/dplyr.h:4,
+                 from RcppExports.cpp:4:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from ../inst/include/dplyr/dplyr.h:16,
+                 from ../inst/include/dplyr.h:8,
+                 from RcppExports.cpp:4:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:256:65: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+ template< class T, class R > struct sp_enable_if_auto_ptr< std::auto_ptr< T >, R >
+                                                                 ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from ../inst/include/dplyr/main.h:4,
+                 from ../inst/include/dplyr.h:4,
+                 from RcppExports.cpp:4:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from ../inst/include/dplyr/dplyr.h:16,
+                 from ../inst/include/dplyr.h:8,
+                 from RcppExports.cpp:4:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:471:31: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit shared_ptr( std::auto_ptr<Y> & r ): px(r.get()), pn()
+                               ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from ../inst/include/dplyr/main.h:4,
+                 from ../inst/include/dplyr.h:4,
+                 from RcppExports.cpp:4:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from ../inst/include/dplyr/dplyr.h:16,
+                 from ../inst/include/dplyr.h:8,
+                 from RcppExports.cpp:4:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:484:22: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr( std::auto_ptr<Y> && r ): px(r.get()), pn()
+                      ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from ../inst/include/dplyr/main.h:4,
+                 from ../inst/include/dplyr.h:4,
+                 from RcppExports.cpp:4:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from ../inst/include/dplyr/dplyr.h:16,
+                 from ../inst/include/dplyr.h:8,
+                 from RcppExports.cpp:4:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:567:34: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr & operator=( std::auto_ptr<Y> & r )
+                                  ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from ../inst/include/dplyr/main.h:4,
+                 from ../inst/include/dplyr.h:4,
+                 from RcppExports.cpp:4:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from ../inst/include/dplyr/dplyr.h:16,
+                 from ../inst/include/dplyr.h:8,
+                 from RcppExports.cpp:4:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:576:34: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr & operator=( std::auto_ptr<Y> && r )
+                                  ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from ../inst/include/dplyr/main.h:4,
+                 from ../inst/include/dplyr.h:4,
+                 from RcppExports.cpp:4:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from ../inst/include/dplyr/dplyr.h:16,
+                 from ../inst/include/dplyr.h:8,
+                 from RcppExports.cpp:4:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp: In member function ‘boost::shared_ptr<T>& boost::shared_ptr<T>::operator=(std::auto_ptr<_Up>&&)’:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:578:38: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+         this_type( static_cast< std::auto_ptr<Y> && >( r ) ).swap( *this );
+                                      ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from ../inst/include/dplyr/main.h:4,
+                 from ../inst/include/dplyr.h:4,
+                 from RcppExports.cpp:4:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/scoped_ptr.hpp:13,
+                 from ../inst/include/dplyr/Result/CallbackProcessor.h:4,
+                 from ../inst/include/dplyr/Result/all.h:19,
+                 from ../inst/include/dplyr/dplyr.h:29,
+                 from ../inst/include/dplyr.h:8,
+                 from RcppExports.cpp:4:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/scoped_ptr.hpp: At global scope:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/scoped_ptr.hpp:74:31: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit scoped_ptr( std::auto_ptr<T> p ) BOOST_SP_NOEXCEPT : px( p.release() )
+                               ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from ../inst/include/dplyr/main.h:4,
+                 from ../inst/include/dplyr.h:4,
+                 from RcppExports.cpp:4:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c address.cpp -o address.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c api.cpp -o api.o
+In file included from /usr/local/lib/R/site-library/BH/include/boost/scoped_ptr.hpp:13,
+                 from api.cpp:4:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/scoped_ptr.hpp:74:31: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit scoped_ptr( std::auto_ptr<T> p ) BOOST_SP_NOEXCEPT : px( p.release() )
+                               ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from api.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c arrange.cpp -o arrange.o
+In file included from /usr/local/lib/R/site-library/BH/include/boost/scoped_ptr.hpp:13,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:4,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from ../inst/include/dplyr/Result/CallProxy.h:4,
+                 from arrange.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/scoped_ptr.hpp:74:31: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit scoped_ptr( std::auto_ptr<T> p ) BOOST_SP_NOEXCEPT : px( p.release() )
+                               ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from arrange.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:28,
+                 from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from ../inst/include/dplyr/Result/CallProxy.h:4,
+                 from arrange.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/detail/shared_count.hpp:355:33: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit shared_count( std::auto_ptr<Y> & r ): pi_( new sp_counted_impl_p<Y>( r.get() ) )
+                                 ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from arrange.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from ../inst/include/dplyr/Result/CallProxy.h:4,
+                 from arrange.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:256:65: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+ template< class T, class R > struct sp_enable_if_auto_ptr< std::auto_ptr< T >, R >
+                                                                 ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from arrange.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from ../inst/include/dplyr/Result/CallProxy.h:4,
+                 from arrange.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:471:31: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit shared_ptr( std::auto_ptr<Y> & r ): px(r.get()), pn()
+                               ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from arrange.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from ../inst/include/dplyr/Result/CallProxy.h:4,
+                 from arrange.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:484:22: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr( std::auto_ptr<Y> && r ): px(r.get()), pn()
+                      ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from arrange.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from ../inst/include/dplyr/Result/CallProxy.h:4,
+                 from arrange.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:567:34: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr & operator=( std::auto_ptr<Y> & r )
+                                  ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from arrange.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from ../inst/include/dplyr/Result/CallProxy.h:4,
+                 from arrange.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:576:34: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr & operator=( std::auto_ptr<Y> && r )
+                                  ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from arrange.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from ../inst/include/dplyr/Result/CallProxy.h:4,
+                 from arrange.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp: In member function ‘boost::shared_ptr<T>& boost::shared_ptr<T>::operator=(std::auto_ptr<_Up>&&)’:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:578:38: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+         this_type( static_cast< std::auto_ptr<Y> && >( r ) ).swap( *this );
+                                      ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from arrange.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c between.cpp -o between.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c bind.cpp -o bind.o
+In file included from /usr/local/lib/R/site-library/BH/include/boost/scoped_ptr.hpp:13,
+                 from bind.cpp:4:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/scoped_ptr.hpp:74:31: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit scoped_ptr( std::auto_ptr<T> p ) BOOST_SP_NOEXCEPT : px( p.release() )
+                               ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from bind.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c combine_variables.cpp -o combine_variables.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c distinct.cpp -o distinct.o
+In file included from /usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:28,
+                 from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from distinct.cpp:7:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/detail/shared_count.hpp:355:33: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit shared_count( std::auto_ptr<Y> & r ): pi_( new sp_counted_impl_p<Y>( r.get() ) )
+                                 ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from distinct.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from distinct.cpp:7:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:256:65: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+ template< class T, class R > struct sp_enable_if_auto_ptr< std::auto_ptr< T >, R >
+                                                                 ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from distinct.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from distinct.cpp:7:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:471:31: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit shared_ptr( std::auto_ptr<Y> & r ): px(r.get()), pn()
+                               ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from distinct.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from distinct.cpp:7:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:484:22: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr( std::auto_ptr<Y> && r ): px(r.get()), pn()
+                      ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from distinct.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from distinct.cpp:7:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:567:34: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr & operator=( std::auto_ptr<Y> & r )
+                                  ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from distinct.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from distinct.cpp:7:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:576:34: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr & operator=( std::auto_ptr<Y> && r )
+                                  ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from distinct.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from distinct.cpp:7:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp: In member function ‘boost::shared_ptr<T>& boost::shared_ptr<T>::operator=(std::auto_ptr<_Up>&&)’:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:578:38: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+         this_type( static_cast< std::auto_ptr<Y> && >( r ) ).swap( *this );
+                                      ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from distinct.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c encoding.cpp -o encoding.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c filter.cpp -o filter.o
+In file included from /usr/local/lib/R/site-library/BH/include/boost/scoped_ptr.hpp:13,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:4,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from filter.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/scoped_ptr.hpp:74:31: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit scoped_ptr( std::auto_ptr<T> p ) BOOST_SP_NOEXCEPT : px( p.release() )
+                               ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from filter.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:28,
+                 from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from filter.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/detail/shared_count.hpp:355:33: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit shared_count( std::auto_ptr<Y> & r ): pi_( new sp_counted_impl_p<Y>( r.get() ) )
+                                 ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from filter.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from filter.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:256:65: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+ template< class T, class R > struct sp_enable_if_auto_ptr< std::auto_ptr< T >, R >
+                                                                 ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from filter.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from filter.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:471:31: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit shared_ptr( std::auto_ptr<Y> & r ): px(r.get()), pn()
+                               ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from filter.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from filter.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:484:22: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr( std::auto_ptr<Y> && r ): px(r.get()), pn()
+                      ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from filter.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from filter.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:567:34: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr & operator=( std::auto_ptr<Y> & r )
+                                  ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from filter.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from filter.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:576:34: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr & operator=( std::auto_ptr<Y> && r )
+                                  ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from filter.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from filter.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp: In member function ‘boost::shared_ptr<T>& boost::shared_ptr<T>::operator=(std::auto_ptr<_Up>&&)’:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:578:38: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+         this_type( static_cast< std::auto_ptr<Y> && >( r ) ).swap( *this );
+                                      ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from filter.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c group_by.cpp -o group_by.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c group_indices.cpp -o group_indices.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c hybrid.cpp -o hybrid.o
+In file included from /usr/local/lib/R/site-library/BH/include/boost/scoped_ptr.hpp:13,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:4,
+                 from hybrid.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/scoped_ptr.hpp:74:31: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit scoped_ptr( std::auto_ptr<T> p ) BOOST_SP_NOEXCEPT : px( p.release() )
+                               ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from hybrid.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:28,
+                 from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from hybrid.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/detail/shared_count.hpp:355:33: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit shared_count( std::auto_ptr<Y> & r ): pi_( new sp_counted_impl_p<Y>( r.get() ) )
+                                 ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from hybrid.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from hybrid.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:256:65: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+ template< class T, class R > struct sp_enable_if_auto_ptr< std::auto_ptr< T >, R >
+                                                                 ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from hybrid.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from hybrid.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:471:31: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit shared_ptr( std::auto_ptr<Y> & r ): px(r.get()), pn()
+                               ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from hybrid.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from hybrid.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:484:22: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr( std::auto_ptr<Y> && r ): px(r.get()), pn()
+                      ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from hybrid.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from hybrid.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:567:34: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr & operator=( std::auto_ptr<Y> & r )
+                                  ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from hybrid.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from hybrid.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:576:34: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr & operator=( std::auto_ptr<Y> && r )
+                                  ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from hybrid.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from hybrid.cpp:12:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp: In member function ‘boost::shared_ptr<T>& boost::shared_ptr<T>::operator=(std::auto_ptr<_Up>&&)’:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:578:38: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+         this_type( static_cast< std::auto_ptr<Y> && >( r ) ).swap( *this );
+                                      ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from hybrid.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c hybrid_count.cpp -o hybrid_count.o
+In file included from /usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:28,
+                 from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from hybrid_count.cpp:6:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/detail/shared_count.hpp:355:33: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit shared_count( std::auto_ptr<Y> & r ): pi_( new sp_counted_impl_p<Y>( r.get() ) )
+                                 ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from hybrid_count.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from hybrid_count.cpp:6:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:256:65: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+ template< class T, class R > struct sp_enable_if_auto_ptr< std::auto_ptr< T >, R >
+                                                                 ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from hybrid_count.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from hybrid_count.cpp:6:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:471:31: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit shared_ptr( std::auto_ptr<Y> & r ): px(r.get()), pn()
+                               ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from hybrid_count.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from hybrid_count.cpp:6:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:484:22: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr( std::auto_ptr<Y> && r ): px(r.get()), pn()
+                      ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from hybrid_count.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from hybrid_count.cpp:6:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:567:34: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr & operator=( std::auto_ptr<Y> & r )
+                                  ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from hybrid_count.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from hybrid_count.cpp:6:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:576:34: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr & operator=( std::auto_ptr<Y> && r )
+                                  ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from hybrid_count.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from hybrid_count.cpp:6:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp: In member function ‘boost::shared_ptr<T>& boost::shared_ptr<T>::operator=(std::auto_ptr<_Up>&&)’:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:578:38: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+         this_type( static_cast< std::auto_ptr<Y> && >( r ) ).swap( *this );
+                                      ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from hybrid_count.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c hybrid_debug.cpp -o hybrid_debug.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c hybrid_in.cpp -o hybrid_in.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c hybrid_minmax.cpp -o hybrid_minmax.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c hybrid_nth.cpp -o hybrid_nth.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c hybrid_offset.cpp -o hybrid_offset.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c hybrid_simple.cpp -o hybrid_simple.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c hybrid_window.cpp -o hybrid_window.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c init.cpp -o init.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c join.cpp -o join.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c join_exports.cpp -o join_exports.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c mutate.cpp -o mutate.o
+In file included from /usr/local/lib/R/site-library/BH/include/boost/scoped_ptr.hpp:13,
+                 from mutate.cpp:4:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/scoped_ptr.hpp:74:31: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit scoped_ptr( std::auto_ptr<T> p ) BOOST_SP_NOEXCEPT : px( p.release() )
+                               ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from mutate.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:28,
+                 from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from ../inst/include/dplyr/Result/CallProxy.h:4,
+                 from mutate.cpp:13:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/detail/shared_count.hpp:355:33: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit shared_count( std::auto_ptr<Y> & r ): pi_( new sp_counted_impl_p<Y>( r.get() ) )
+                                 ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from mutate.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from ../inst/include/dplyr/Result/CallProxy.h:4,
+                 from mutate.cpp:13:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:256:65: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+ template< class T, class R > struct sp_enable_if_auto_ptr< std::auto_ptr< T >, R >
+                                                                 ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from mutate.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from ../inst/include/dplyr/Result/CallProxy.h:4,
+                 from mutate.cpp:13:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:471:31: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit shared_ptr( std::auto_ptr<Y> & r ): px(r.get()), pn()
+                               ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from mutate.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from ../inst/include/dplyr/Result/CallProxy.h:4,
+                 from mutate.cpp:13:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:484:22: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr( std::auto_ptr<Y> && r ): px(r.get()), pn()
+                      ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from mutate.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from ../inst/include/dplyr/Result/CallProxy.h:4,
+                 from mutate.cpp:13:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:567:34: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr & operator=( std::auto_ptr<Y> & r )
+                                  ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from mutate.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from ../inst/include/dplyr/Result/CallProxy.h:4,
+                 from mutate.cpp:13:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:576:34: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr & operator=( std::auto_ptr<Y> && r )
+                                  ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from mutate.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from ../inst/include/dplyr/Result/CallProxy.h:4,
+                 from mutate.cpp:13:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp: In member function ‘boost::shared_ptr<T>& boost::shared_ptr<T>::operator=(std::auto_ptr<_Up>&&)’:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:578:38: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+         this_type( static_cast< std::auto_ptr<Y> && >( r ) ).swap( *this );
+                                      ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from mutate.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rlang-export.c -o rlang-export.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rlang.cpp -o rlang.o
+In file included from /usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:28,
+                 from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from ../inst/include/dplyr/dplyr.h:16,
+                 from ../inst/include/dplyr.h:8,
+                 from rlang.cpp:1:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/detail/shared_count.hpp:355:33: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit shared_count( std::auto_ptr<Y> & r ): pi_( new sp_counted_impl_p<Y>( r.get() ) )
+                                 ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from ../inst/include/dplyr/main.h:4,
+                 from ../inst/include/dplyr.h:4,
+                 from rlang.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from ../inst/include/dplyr/dplyr.h:16,
+                 from ../inst/include/dplyr.h:8,
+                 from rlang.cpp:1:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:256:65: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+ template< class T, class R > struct sp_enable_if_auto_ptr< std::auto_ptr< T >, R >
+                                                                 ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from ../inst/include/dplyr/main.h:4,
+                 from ../inst/include/dplyr.h:4,
+                 from rlang.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from ../inst/include/dplyr/dplyr.h:16,
+                 from ../inst/include/dplyr.h:8,
+                 from rlang.cpp:1:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:471:31: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit shared_ptr( std::auto_ptr<Y> & r ): px(r.get()), pn()
+                               ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from ../inst/include/dplyr/main.h:4,
+                 from ../inst/include/dplyr.h:4,
+                 from rlang.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from ../inst/include/dplyr/dplyr.h:16,
+                 from ../inst/include/dplyr.h:8,
+                 from rlang.cpp:1:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:484:22: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr( std::auto_ptr<Y> && r ): px(r.get()), pn()
+                      ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from ../inst/include/dplyr/main.h:4,
+                 from ../inst/include/dplyr.h:4,
+                 from rlang.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from ../inst/include/dplyr/dplyr.h:16,
+                 from ../inst/include/dplyr.h:8,
+                 from rlang.cpp:1:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:567:34: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr & operator=( std::auto_ptr<Y> & r )
+                                  ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from ../inst/include/dplyr/main.h:4,
+                 from ../inst/include/dplyr.h:4,
+                 from rlang.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from ../inst/include/dplyr/dplyr.h:16,
+                 from ../inst/include/dplyr.h:8,
+                 from rlang.cpp:1:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:576:34: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr & operator=( std::auto_ptr<Y> && r )
+                                  ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from ../inst/include/dplyr/main.h:4,
+                 from ../inst/include/dplyr.h:4,
+                 from rlang.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/MultipleVectorVisitors.h:4,
+                 from ../inst/include/dplyr/dplyr.h:16,
+                 from ../inst/include/dplyr.h:8,
+                 from rlang.cpp:1:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp: In member function ‘boost::shared_ptr<T>& boost::shared_ptr<T>::operator=(std::auto_ptr<_Up>&&)’:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:578:38: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+         this_type( static_cast< std::auto_ptr<Y> && >( r ) ).swap( *this );
+                                      ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from ../inst/include/dplyr/main.h:4,
+                 from ../inst/include/dplyr.h:4,
+                 from rlang.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/scoped_ptr.hpp:13,
+                 from ../inst/include/dplyr/Result/CallbackProcessor.h:4,
+                 from ../inst/include/dplyr/Result/all.h:19,
+                 from ../inst/include/dplyr/dplyr.h:29,
+                 from ../inst/include/dplyr.h:8,
+                 from rlang.cpp:1:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/scoped_ptr.hpp: At global scope:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/scoped_ptr.hpp:74:31: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit scoped_ptr( std::auto_ptr<T> p ) BOOST_SP_NOEXCEPT : px( p.release() )
+                               ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from ../inst/include/dplyr/main.h:4,
+                 from ../inst/include/dplyr.h:4,
+                 from rlang.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c select.cpp -o select.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c set.cpp -o set.o
+In file included from /usr/local/lib/R/site-library/BH/include/boost/scoped_ptr.hpp:13,
+                 from set.cpp:4:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/scoped_ptr.hpp:74:31: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit scoped_ptr( std::auto_ptr<T> p ) BOOST_SP_NOEXCEPT : px( p.release() )
+                               ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from set.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c slice.cpp -o slice.o
+In file included from /usr/local/lib/R/site-library/BH/include/boost/scoped_ptr.hpp:13,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:4,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from slice.cpp:8:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/scoped_ptr.hpp:74:31: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit scoped_ptr( std::auto_ptr<T> p ) BOOST_SP_NOEXCEPT : px( p.release() )
+                               ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from slice.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:28,
+                 from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from slice.cpp:8:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/detail/shared_count.hpp:355:33: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit shared_count( std::auto_ptr<Y> & r ): pi_( new sp_counted_impl_p<Y>( r.get() ) )
+                                 ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from slice.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from slice.cpp:8:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:256:65: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+ template< class T, class R > struct sp_enable_if_auto_ptr< std::auto_ptr< T >, R >
+                                                                 ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from slice.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from slice.cpp:8:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:471:31: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit shared_ptr( std::auto_ptr<Y> & r ): px(r.get()), pn()
+                               ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from slice.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from slice.cpp:8:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:484:22: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr( std::auto_ptr<Y> && r ): px(r.get()), pn()
+                      ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from slice.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from slice.cpp:8:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:567:34: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr & operator=( std::auto_ptr<Y> & r )
+                                  ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from slice.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from slice.cpp:8:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:576:34: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr & operator=( std::auto_ptr<Y> && r )
+                                  ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from slice.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from slice.cpp:8:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp: In member function ‘boost::shared_ptr<T>& boost::shared_ptr<T>::operator=(std::auto_ptr<_Up>&&)’:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:578:38: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+         this_type( static_cast< std::auto_ptr<Y> && >( r ) ).swap( *this );
+                                      ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from slice.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c summarise.cpp -o summarise.o
+In file included from /usr/local/lib/R/site-library/BH/include/boost/scoped_ptr.hpp:13,
+                 from summarise.cpp:4:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/scoped_ptr.hpp:74:31: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit scoped_ptr( std::auto_ptr<T> p ) BOOST_SP_NOEXCEPT : px( p.release() )
+                               ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from summarise.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:28,
+                 from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from ../inst/include/dplyr/Result/GroupedCallReducer.h:7,
+                 from summarise.cpp:11:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/detail/shared_count.hpp:355:33: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit shared_count( std::auto_ptr<Y> & r ): pi_( new sp_counted_impl_p<Y>( r.get() ) )
+                                 ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from summarise.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from ../inst/include/dplyr/Result/GroupedCallReducer.h:7,
+                 from summarise.cpp:11:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:256:65: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+ template< class T, class R > struct sp_enable_if_auto_ptr< std::auto_ptr< T >, R >
+                                                                 ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from summarise.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from ../inst/include/dplyr/Result/GroupedCallReducer.h:7,
+                 from summarise.cpp:11:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:471:31: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     explicit shared_ptr( std::auto_ptr<Y> & r ): px(r.get()), pn()
+                               ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from summarise.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from ../inst/include/dplyr/Result/GroupedCallReducer.h:7,
+                 from summarise.cpp:11:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:484:22: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr( std::auto_ptr<Y> && r ): px(r.get()), pn()
+                      ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from summarise.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from ../inst/include/dplyr/Result/GroupedCallReducer.h:7,
+                 from summarise.cpp:11:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:567:34: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr & operator=( std::auto_ptr<Y> & r )
+                                  ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from summarise.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from ../inst/include/dplyr/Result/GroupedCallReducer.h:7,
+                 from summarise.cpp:11:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:576:34: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+     shared_ptr & operator=( std::auto_ptr<Y> && r )
+                                  ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from summarise.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+In file included from /usr/local/lib/R/site-library/BH/include/boost/shared_ptr.hpp:17,
+                 from ../inst/include/dplyr/Result/GroupedHybridCall.h:5,
+                 from ../inst/include/dplyr/Result/GroupedCallProxy.h:9,
+                 from ../inst/include/dplyr/Result/GroupedCallReducer.h:7,
+                 from summarise.cpp:11:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp: In member function ‘boost::shared_ptr<T>& boost::shared_ptr<T>::operator=(std::auto_ptr<_Up>&&)’:
+/usr/local/lib/R/site-library/BH/include/boost/smart_ptr/shared_ptr.hpp:578:38: warning: ‘template<class> class std::auto_ptr’ is deprecated [-Wdeprecated-declarations]
+         this_type( static_cast< std::auto_ptr<Y> && >( r ) ).swap( *this );
+                                      ^~~~~~~~
+In file included from /usr/include/c++/8/bits/locale_conv.h:41,
+                 from /usr/include/c++/8/locale:43,
+                 from /usr/include/c++/8/iomanip:43,
+                 from /usr/local/lib/R/site-library/Rcpp/include/RcppCommon.h:52,
+                 from /usr/local/lib/R/site-library/Rcpp/include/Rcpp.h:27,
+                 from pch.h:1,
+                 from summarise.cpp:1:
+/usr/include/c++/8/bits/unique_ptr.h:53:28: note: declared here
+   template<typename> class auto_ptr;
+                            ^~~~~~~~
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c test.cpp -o test.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c utils.cpp -o utils.o
+g++  -I"/usr/share/R/include" -DNDEBUG -I../inst/include -DCOMPILING_DPLYR -DBOOST_NO_INT64_T -DBOOST_NO_INTEGRAL_INT64_T -DBOOST_NO_LONG_LONG -DRCPP_USING_UTF8_ERROR_STRING -I"/usr/local/lib/R/site-library/BH/include" -I"/usr/local/lib/R/site-library/bindrcpp/include" -I"/usr/local/lib/R/site-library/plogr/include" -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c window.cpp -o window.o
+g++ -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o dplyr.so RcppExports.o address.o api.o arrange.o between.o bind.o combine_variables.o distinct.o encoding.o filter.o group_by.o group_indices.o hybrid.o hybrid_count.o hybrid_debug.o hybrid_in.o hybrid_minmax.o hybrid_nth.o hybrid_offset.o hybrid_simple.o hybrid_window.o init.o join.o join_exports.o mutate.o rlang-export.o rlang.o select.o set.o slice.o summarise.o test.o utils.o window.o -L/usr/lib/R/lib -lR
+installing to /usr/local/lib/R/site-library/dplyr/libs
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (dplyr)
+* installing *source* package ‘readr’ ...
+** package ‘readr’ successfully unpacked and MD5 sums checked
+** libs
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"   -I. -Ircon -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c Collector.cpp -o Collector.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"   -I. -Ircon -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c CollectorGuess.cpp -o CollectorGuess.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"   -I. -Ircon -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c Iconv.cpp -o Iconv.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"   -I. -Ircon -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c LocaleInfo.cpp -o LocaleInfo.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"   -I. -Ircon -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c RcppExports.cpp -o RcppExports.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"   -I. -Ircon -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c Reader.cpp -o Reader.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"   -I. -Ircon -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c Source.cpp -o Source.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"   -I. -Ircon -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c Tokenizer.cpp -o Tokenizer.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"   -I. -Ircon -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c TokenizerDelim.cpp -o TokenizerDelim.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"   -I. -Ircon -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c TokenizerFwf.cpp -o TokenizerFwf.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"   -I. -Ircon -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c TokenizerWs.cpp -o TokenizerWs.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"   -I. -Ircon -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c connection.cpp -o connection.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"   -I. -Ircon -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c datetime.cpp -o datetime.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c grisu3.c -o grisu3.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c init.c -o init.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c localtime.c -o localtime.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"   -I. -Ircon -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c parse.cpp -o parse.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"   -I. -Ircon -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c read.cpp -o read.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"   -I. -Ircon -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c type_convert.cpp -o type_convert.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"   -I. -Ircon -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c write.cpp -o write.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"   -I. -Ircon -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c write_connection.cpp -o write_connection.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"   -I. -Ircon -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c write_delim.cpp -o write_delim.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include" -I"/usr/local/lib/R/site-library/BH/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c rcon/connection.c -o rcon/connection.o
+mkdir -p ../inst/rcon
+g++  -shared -L"/usr/lib/R/lib" -Wl,-Bsymbolic-functions -Wl,-z,relro -o ../inst/rcon/librcon.so rcon/connection.o
+g++ -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o readr.so Collector.o CollectorGuess.o Iconv.o LocaleInfo.o RcppExports.o Reader.o Source.o Tokenizer.o TokenizerDelim.o TokenizerFwf.o TokenizerWs.o connection.o datetime.o grisu3.o init.o localtime.o parse.o read.o type_convert.o write.o write_connection.o write_delim.o -L. -lrcon -L../inst/rcon -Wl,-rpath,$ORIGIN/../rcon -L/usr/lib/R/lib -lR
+installing via 'install.libs.R' to /usr/local/lib/R/site-library/readr
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (readr)
+* installing *source* package ‘ggplot2’ ...
+** package ‘ggplot2’ successfully unpacked and MD5 sums checked
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (ggplot2)
+* installing *source* package ‘gsheet’ ...
+** package ‘gsheet’ successfully unpacked and MD5 sums checked
+** R
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+* DONE (gsheet)
+* installing *source* package ‘tidyr’ ...
+** package ‘tidyr’ successfully unpacked and MD5 sums checked
+** libs
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c RcppExports.cpp -o RcppExports.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c fill.cpp -o fill.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c melt.cpp -o melt.o
+g++  -I"/usr/share/R/include" -DNDEBUG  -I"/usr/local/lib/R/site-library/Rcpp/include"    -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-UCDavA/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c simplifyPieces.cpp -o simplifyPieces.o
+g++ -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o tidyr.so RcppExports.o fill.o melt.o simplifyPieces.o -L/usr/lib/R/lib -lR
+installing to /usr/local/lib/R/site-library/tidyr/libs
+** R
+** data
+*** moving datasets to lazyload DB
+** demo
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (tidyr)
+* installing *source* package ‘crosstalk’ ...
+** package ‘crosstalk’ successfully unpacked and MD5 sums checked
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+* DONE (crosstalk)
+* installing *source* package ‘googlesheets’ ...
+** package ‘googlesheets’ successfully unpacked and MD5 sums checked
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (googlesheets)
+* installing *source* package ‘plotly’ ...
+** package ‘plotly’ successfully unpacked and MD5 sums checked
+** R
+** data
+*** moving datasets to lazyload DB
+** demo
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** testing if installed package can be loaded
+* DONE (plotly)
+
+The downloaded source packages are in
+	‘/tmp/RtmpDd3XXq/downloaded_packages’
+> 
+> 
+> proc.time()
+   user  system elapsed 
+777.641  30.752 821.268 
