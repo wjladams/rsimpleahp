@@ -2,7 +2,7 @@
 The SimpleAHP server is open source software, that can be freely downloaded and used.  It is written in the R programming language, making use of the Shiny R library for creating webapps. In order to have your own version of SimpleAHP running on your own server you need the following pieces of information
 
 2. You need a server somewhere (you can get a free Amazon server for one year, we'll explain how below)
-1. You need to download the source from [Our github repository](https://github.com/isahp/youth-session)
+1. You need to download the source from [Our github repository](https://github.com/wjladams/simpleahp)
 3. You need to install R and the Shiny-Server on your server (details below)
 4. You need to put our source code for SimpleAHP on your server, in the correct directory
 5. That is it!
@@ -40,7 +40,7 @@ Our source code is freely available via github, using the git version control sy
 5. Get our source code by running the following command
 
   ```
-  git clone https://github.com/isahp/youth-session.git
+  git clone https://github.com/wjladams/simpleahp.git
   ```
 6. You will now have a directory called `youth-session` in the `/srv/shiny-server` directory.  The last thing to do is make a symbolic link from to the directory in `youth-session` that contains the app.  Do this by running the following command
 
@@ -56,7 +56,7 @@ Our source code is freely available via github, using the git version control sy
 ## 4. Getting Help
 We have a discussion group setup on gitter to answer questions you all run into, or suggestions for improvements, etc.  It is available at:
 
-* [https://gitter.im/isahp/youth-session](https://gitter.im/isahp/youth-session)
+* [https://gitter.im/simpahp](https://gitter.im/simpahp)
 
 You can view the discussion group without logging in.  To post questions/ideas/etc you need to log in.  You can use either a twitter account, or github account.
 
