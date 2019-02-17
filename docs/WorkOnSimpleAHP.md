@@ -17,7 +17,7 @@ There are three different ways to get the SimpleAHP source code:
 ### 1.1 Get the SimpleAHP source code (The simplest option)
 For this option, the steps are very easy:
 
-1. Go to https://github.com/isahp/youth-session
+1. Go to https://github.com/wjladams/simpleahp
 2. Click on the green *Clone or download* button in the upper right
 3. Select `Download Zip` from the popup window
 4. Extract the zip file
@@ -30,11 +30,11 @@ If you wish to easily stay up to date with our latest code changes to SimpleAHP,
 
 1. Go to https://desktop.github.com/ and Download the installer for your operating system.  Note: linux is not supported, but there are other git tools available for linux systems.
 2. Install the app as usual for your operating system.
-3. Go to  https://github.com/isahp/youth-session
+3. Go to  https://github.com/wjladams/simpleahp
 4. Click the gree *Clone of download* button in the upper right
 5. Select *Open in Github Desktop*
 6. Github Desktop will open, follow the prompts to `clone' the repository (i.e. grab our source code)
- 
+
 ### 1.3 Sharing your code changes
 The great thing about hosting your code on github is that, not only can others easily access it, others can actually contribute changes back!  For example, if you see a bug, and fix it, you can easily share that code back to the community.  If you have Github Desktop installed already on your machine, you only need a free github account, give Github Desktop access to your github account, and create a pull request.  Just follow these steps:
 
@@ -81,7 +81,7 @@ The source code is all in the `SimpleAHP/PairwiseShinyApp` directory of the sour
 
 * **server.R**: Any Shiny web app needs to have one of these, it is the code that handles the server side interaction.
 * **ui.R**: Again, this is a standard Shiny file.  This file creates the web user interface.
-* **basics.R**: This file has the code for handling symbolic voting, getting the votes, etc.  It also has the code that is called when the definition of Better or Much Better is changed.  It 
+* **basics.R**: This file has the code for handling symbolic voting, getting the votes, etc.  It also has the code that is called when the definition of Better or Much Better is changed.  It
 * **common-fxs.R**: This file has eigenvector and priority calculation functions in it.  In addition it has our new experimental ideas for priority vector calculations.
 * **set-globals.R**: This contains the functions that set the global variables which store all pairwise comparison matrices, their actual numerical versions, and calculated priorities.
 * **parse-google.R**: The code specifically to parse google spreadsheets, and spreadsheets tied to google forms is here.
@@ -89,4 +89,3 @@ The source code is all in the `SimpleAHP/PairwiseShinyApp` directory of the sour
 ## 5. Getting help
 
 We have gitter.im discussion room at https://gitter.im/isahp/youth-session .  You can view the room without logging in.  However if you wish to ask a question, you need to click on the *Sign in to start talking* button at the bottom of the screen.  You can sign in with either a twitter account, or a github account.  If you do not have either account, I would recommend getting a free github account by going to https://github.com/join, since you can use that same account to contribute any changes you eventually make back to the community.
-
